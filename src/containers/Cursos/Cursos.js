@@ -148,11 +148,14 @@ class Cursos extends Component {
                             type: "danger"
                         }
                     });
+                    break;
+                default:
+                    const fetchedData = data.cursos.map((element) => {
+                        return {...element}
+                    });
+                    this.getPersonalCourses(fetchedData);
             }
-            const fetchedData = data.cursos.map((element) => {
-                return {...element}
-            });
-            this.getPersonalCourses(fetchedData)
+
         }).catch(error => {
             if (status === 401) {
                 this.props.history.push("/login");
