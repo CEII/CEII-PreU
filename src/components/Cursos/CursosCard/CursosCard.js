@@ -26,23 +26,24 @@ export const cursosCard = (props) => {
                              disabled={!props.canFry}
                              onClick={(event) => props.handler(event, data._id, data.numeroDia)}
             >
-                {data.active ? "Desinscribirse" : "Inscribirse"}
+                {data.active ? "DESINSCRIBIRSE" : "INSCRIBIRSE"}
             </Button>;
         } else {
             bottom = <Button color="secondary"
                              className={style.btn}
                              onClick={(event) => props.handler(event, data._id, data.numeroDia)}
             >
-                {data.active ? "Desinscribirse" : "Inscribirse"}
+                {data.active ? "DESINSCRIBIRSE" : "INSCRIBIRSE"}
             </Button>;
         }
     }
     return (
-        <Card outline color="secondary">
+        <Card tag={"div"} outline color="secondary">
             <CardHeader tag={"h4"}>{data.nombre}</CardHeader>
             <CardBody>
                 {text}
                 {bottom}
+                {data.numeroDia===5?"Disponible si se ha asistido a almenos 3 cursos":""}
             </CardBody>
         </Card>
     );

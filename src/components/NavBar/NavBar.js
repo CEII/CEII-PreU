@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import {navItem as NavItem} from "../NavItem/NavItem";
+import style from "./NavBar.module.css";
+
 
 import {Navbar,
     NavbarBrand,
@@ -11,7 +13,7 @@ import {Navbar,
 
 export const navBar = (props) => {
     return (
-        <Navbar color="dark" dark expand="md">
+        <Navbar dark expand="md" className={style["Nav-bar"]}>
             <NavbarBrand href="/">CEII</NavbarBrand>
             <NavbarToggler onClick={props.openHandler} />
             <Collapse isOpen={props.isOpen} navbar>

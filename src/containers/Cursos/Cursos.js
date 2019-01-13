@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import style from "./Cursos.module.css";
 import {cursosWrapper as CursosWrapper} from "../../components/Cursos/CursosWrapper/CursosWrapper";
 import {Alert} from "reactstrap";
-
+import Footer from "./../Footer/Footer";
 import {withRouter} from "react-router-dom";
 import Header from "../Header/Header";
 
@@ -50,17 +50,17 @@ class Cursos extends Component {
             data: data
         });
         if((this.state.canFry&&numeroDia===5)||numeroDia!==5){
-            fetch("https://cursos-pre.herokuapp.com/sistema/estudiantes/reservar/" + id, {
+            fetch("https://ceii.com.sv/preu/api/sistema/estudiantes/reservar/" + id, {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("token")
                 }
             }).then(response => {
                 status = response.status;
-                alertText = response.statusText;
-                console.log(response);
                 return response.json();
             }).then(data => {
+                alertText = data.message;
+                console.log(alertText);
                 switch (status) {
                     case 409:
                         const data = [...this.state.data];
@@ -76,7 +76,7 @@ class Cursos extends Component {
                             data: data,
                             alert: {
                                 alertVisible: true,
-                                message: "Conflicto con el horario de dos cursos",
+                                text: alertText,
                                 type: "danger"
                             }
                         });
@@ -127,7 +127,7 @@ class Cursos extends Component {
 
     getCourses() {
         let status = null;
-        fetch("https://cursos-pre.herokuapp.com/sistema/cursos", {
+        fetch("https://ceii.com.sv/preu/api/sistema/cursos", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
@@ -165,7 +165,7 @@ class Cursos extends Component {
 
     getPersonalCourses(fetchedData) {
         let status = null;
-        fetch("https://cursos-pre.herokuapp.com/sistema/estudiantes/personal", {
+        fetch("https://ceii.com.sv/preu/api/sistema/estudiantes/personal", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
@@ -204,15 +204,18 @@ class Cursos extends Component {
         return <>
             <Header type={1}/>
             <div className={style.body}>
-                <Alert color={this.state.alert.type} isOpen={this.state.alert.alertVisible} toggle={this.onDismiss}>
-                    {this.state.alert.message}
-                </Alert>
+                <div className={style.Floating}>
+                    <Alert color={this.state.alert.type} isOpen={this.state.alert.alertVisible} toggle={this.onDismiss}>
+                        {this.state.alert.text}
+                    </Alert>
+                </div>
                 <CursosWrapper
                     cursos={this.state.data}
                     handler={this.onButtonClickHandler}
                     canFry={this.state.canFry}
                 />
             </div>
+            <Footer type={1}/>
         </>;
 
     }

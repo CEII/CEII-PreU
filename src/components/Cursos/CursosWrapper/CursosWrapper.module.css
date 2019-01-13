@@ -1,9 +1,15 @@
+.Container{
+    text-align: center;
+    margin: 0 auto;
+}
+
 .Wrapper {
     display: grid;
     grid-column-gap: 1em;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 24% 24% 24% 24%;
+    justify-content: center;
     text-align: center;
-    margin: 1em 1em;
+    margin: 1em auto;
 }
 
 .WrapperW {
@@ -12,9 +18,28 @@
     margin: 0 auto;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 1200px) {
     .Wrapper {
-        grid-template-columns: auto;
+        grid-template-columns: 50% 50%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .Wrapper > * {
+        margin: 1em 0;
+    }
+
+    .WrapperW {
+        width: 50%;
+        text-align: center;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .Wrapper {
+        grid-template-columns: 90%;
+        justify-items: center;
         text-align: center;
         margin: 1em 1em;
     }
@@ -30,11 +55,27 @@
     }
 }
 
+@media only screen and (max-width: 400px) {
+    .Wrapper {
+        grid-template-columns: 90%;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .Wrapper div {
+
+    }
+
+    .WrapperW {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+}
+
 @media only screen and (max-width: 300px) {
     .Wrapper {
-        grid-template-columns: auto;
-        text-align: center;
-        margin: 1em 1em;
+        grid-template-columns: 90%;
     }
 
     .WrapperW {

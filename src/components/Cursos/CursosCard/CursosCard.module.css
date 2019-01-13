@@ -2,4 +2,8 @@
     width: 90%;
     margin: 0 auto;
     display: block;
+    background: #283593;
+}
+.btn:disabled{
+    background: #283593;
 }

@@ -5,13 +5,13 @@ export const loginForm = (props) => {
     const form={...props.form};
     return (
         <Container className={"justify-content-center"}>
-            <h2>Log In</h2>
+            <h2>Iniciar Sesión</h2>
             <br/>
             <Form className="form">
                 <FormGroup>
                     <Label for={"carnet"}>Carnet</Label>
                     <Input
-                        type="number"
+                        type="text"
                         name="carnet"
                         id="carnet"
                         bsSize={"lg"}
@@ -22,7 +22,7 @@ export const loginForm = (props) => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="password">Password</Label>
+                    <Label for="password">Contaseña</Label>
                     <Input
                         type="password"
                         name="secreto"

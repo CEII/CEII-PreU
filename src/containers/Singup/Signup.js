@@ -3,7 +3,7 @@ import {signupForm as SignupForm} from "../../components/SignupForm/SignupForm";
 import {Button} from "reactstrap";
 import {withRouter} from "react-router-dom";
 import Header from "../Header/Header";
-
+import Footer from "./../Footer/Footer";
 
 class Signup extends Component {
     constructor(props) {
@@ -90,7 +90,7 @@ class Signup extends Component {
             <div className="spinner-grow Center" role="status">
                 <span className="sr-only">Loading...</span>
             </div> :
-            <Button className={"Center"} onClick={(event) => this.submitHandler(event)}>Submit</Button>;
+            <Button className={"Center Color"} onClick={(event) => this.submitHandler(event)}>CREAR</Button>;
         return <div>
             <Header type={0}/>
             <SignupForm
@@ -102,6 +102,7 @@ class Signup extends Component {
                 carnet={this.state.carnetValid}
             />
             {button}
+            <Footer type={1}/>
         </div>;
     }
 }

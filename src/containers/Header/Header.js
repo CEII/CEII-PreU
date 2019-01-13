@@ -20,10 +20,10 @@ class Header extends Component {
 
         let item = [];
         if (this.props.type === 0) {
-            item = [{name: "Login", reference: "/login"},
-                {name: "Sign up", reference: "/signup"}];
+            item = [{name: "Iniciar Sesión", reference: "/login"},
+                {name: "Registrarse", reference: "/signup"}];
         } else {
-            item = [{name: "Logout", reference: "/logout"}];
+            item = [{name: "Cerrar Sesión", reference: "/logout"}];
         }
         return <header>
             <NavBar isOpen={this.state.isOpen} openHandler={this.openHandler} items={item}/>

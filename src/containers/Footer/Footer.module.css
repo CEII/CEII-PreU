@@ -1,0 +1,23 @@
+.Footer {
+    margin-top: 2em;
+    position:absolute;
+    width:100%;
+    background:#013c6f;
+}
+
+.FooterL{
+    position:absolute;
+    width:100%;
+    bottom: -20vh;
+    background: #013c6f;
+}
+
+.IconsContainer{
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+}
+
+.Copyright{
+    background: #42669e;
+}
