@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 export const cursosCard = (props) => {
     const data = {...props.data};
-    console.log(data);
     const text =
         <div>
             <p>Ponente: {data.ponente}</p>
@@ -20,12 +19,23 @@ export const cursosCard = (props) => {
             <span className="sr-only">Loading...</span>
         </div>;
     } else {
-        bottom = <Button color="secondary"
-                         className={style.btn}
-                         onClick={(event) => props.handler(event, data._id)}
-        >
-            {data.active ? "Desinscribirse" : "Inscribirse"}
-        </Button>;
+        if (props.canFry !== undefined) {
+            console.log(data.numeroDia);
+            bottom = <Button color="secondary"
+                             className={style.btn}
+                             disabled={!props.canFry}
+                             onClick={(event) => props.handler(event, data._id, data.numeroDia)}
+            >
+                {data.active ? "Desinscribirse" : "Inscribirse"}
+            </Button>;
+        } else {
+            bottom = <Button color="secondary"
+                             className={style.btn}
+                             onClick={(event) => props.handler(event, data._id, data.numeroDia)}
+            >
+                {data.active ? "Desinscribirse" : "Inscribirse"}
+            </Button>;
+        }
     }
     return (
         <Card outline color="secondary">

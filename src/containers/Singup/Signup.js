@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {signupForm as SignupForm} from "../../components/SignupForm/SignupForm";
 import {Button} from "reactstrap";
+import {withRouter} from "react-router-dom";
+import Header from "../Header/Header";
 
 
 class Signup extends Component {
@@ -66,16 +68,18 @@ class Signup extends Component {
                 })
             }).then(response => {
                 status = response.status;
-                if(status===422){
-                    this.setState({
-                        carnetValid:false
-                    });
-                }else{
-                    return response.json();
+                switch (status) {
+                    case 422:
+                        this.setState({
+                            carnetValid:false
+                        });
+                        this.setState({loading:false})
+                        break;
+                    default: return response.json();
                 }
             }).then((data) => {
-                console.log(data);
-            }).finally(()=>this.setState({loading:false}));
+                this.props.history.push("/login");
+            })
         } else {
 
         }
@@ -88,6 +92,7 @@ class Signup extends Component {
             </div> :
             <Button className={"Center"} onClick={(event) => this.submitHandler(event)}>Submit</Button>;
         return <div>
+            <Header type={0}/>
             <SignupForm
                 change={this.changeHandler}
                 data={this.state.form}
@@ -101,4 +106,4 @@ class Signup extends Component {
     }
 }
 
-export default Signup
+export default withRouter(Signup);

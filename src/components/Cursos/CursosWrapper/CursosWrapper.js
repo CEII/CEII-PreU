@@ -43,7 +43,7 @@ export const cursosWrapper = (props) => {
                 {props.cursos.filter((element) => {
                     return (element.numeroDia === 5)
                 }).map((element) => {
-                    return <CursosCard key={element._id} data={element} handler={props.handler}/>;
+                    return <CursosCard key={element._id} data={element} handler={props.handler} canFry={props.canFry}/>;
                 })}
             </div>
         </Container>
