@@ -2,8 +2,8 @@
     width: 90%;
     margin: 0 auto;
     display: block;
-    background: #283593;
+    background: #013c6f;
 }
 .btn:disabled{
-    background: #283593;
+    background: #013c6f;
 }

@@ -6,11 +6,11 @@
     display: block;
     margin: 0 auto;
     width: 90%;
-    background: #283593;
+    background: #013c6f;
 }
 
 .btn:disabled{
-    background: #283593;
+    background: #013c6f;
 }
 
 @media all and (min-width: 480px) {
