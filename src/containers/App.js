@@ -1,17 +1,26 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {layout as Layout} from "../components/Layout/Layout";
+import Cursos from "./../containers/Cursos/Cursos";
+import Login from "./Login/Login";
+import Signup from "./Singup/Signup";
+import {Switch, Route} from "react-router-dom";
+
 import './App.css';
-import Header from "./Header/Header";
-import Cursos from "./Cursos/Cursos";
+
 
 class App extends Component {
-  render() {
-    return (
-      <>
-        <Header/>
-        <Cursos/>
-      </>
-    );
-  }
+
+    render() {
+        return (
+            <Layout>
+                <Switch>
+                    <Route path={"/login"} component={Login}/>
+                    <Route path={"/signup"} component={Signup}/>
+                    <Route path={"/"} component={Cursos}/>
+                </Switch>
+            </Layout>
+        );
+    }
 }
 
 export default App;

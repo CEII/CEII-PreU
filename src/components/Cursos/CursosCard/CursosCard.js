@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 export const cursosCard = (props) => {
     const data = {...props.data};
+    console.log(data);
     const text =
         <div>
             <p>Ponente: {data.ponente}</p>
@@ -13,17 +14,27 @@ export const cursosCard = (props) => {
             <p>Salon: {data.salon}</p>
             <p>Cupos disponibles: {data.cupo - data.numeroInscritos}</p>
         </div>;
+    let bottom = null;
+    if (data.loading) {
+        bottom = <div className="spinner-grow Center" role="status">
+            <span className="sr-only">Loading...</span>
+        </div>;
+    } else {
+        bottom = <Button color="secondary"
+                         className={style.btn}
+                         onClick={(event) => props.handler(event, data._id)}
+        >
+            {data.active ? "Desinscribirse" : "Inscribirse"}
+        </Button>;
+    }
     return (
-        <Col sm={"3"}>
-            <Card outline color="secondary">
-                <CardHeader tag={"h4"}>{data.nombre}</CardHeader>
-                <CardBody>
-                    {text}
-                    <Button color="secondary" className={style.btn}
-                            onClick={() => props.buttonClick()}>INSCRIPCION</Button>
-                </CardBody>
-            </Card>
-        </Col>
+        <Card outline color="secondary">
+            <CardHeader tag={"h4"}>{data.nombre}</CardHeader>
+            <CardBody>
+                {text}
+                {bottom}
+            </CardBody>
+        </Card>
     );
 };
 

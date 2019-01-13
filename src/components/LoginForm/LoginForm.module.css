@@ -1,0 +1,16 @@
+.Container{
+    text-align: center;
+}
+
+.btn{
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+}
+@media all and (min-width: 480px) {
+    form {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+
+}

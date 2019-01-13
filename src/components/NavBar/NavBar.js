@@ -6,24 +6,18 @@ import {Navbar,
     NavbarBrand,
     NavbarToggler,
     Collapse,
-    NavLink,
-    Nav,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
+    Nav
 } from "reactstrap";
 
 export const navBar = (props) => {
-    console.log(props.items);
     return (
         <Navbar color="dark" dark expand="md">
             <NavbarBrand href="/">CEII</NavbarBrand>
             <NavbarToggler onClick={props.openHandler} />
             <Collapse isOpen={props.isOpen} navbar>
-                {/*<Nav className="ml-auto" navbar>
+                <Nav className="ml-auto" navbar>
                     <NavItem items={props.items}/>
-                </Nav>*/}
+                </Nav>
             </Collapse>
         </Navbar>
     );

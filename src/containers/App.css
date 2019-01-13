@@ -1,0 +1,13 @@
+.CenterContainer{
+    position: fixed;
+    margin-top: 2em;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+
+.Center{
+    display: block;
+    margin: 0 auto;
+}

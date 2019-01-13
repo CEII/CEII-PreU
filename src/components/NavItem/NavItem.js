@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {NavItem, NavLink} from "reactstrap";
+import {NavLink} from "react-router-dom";
+
+import {NavItem} from "reactstrap";
 
 export const navItem = (props) => {
     return (
         props.items.map((item)=>{
             return <NavItem key={item.name}>
-                <NavLink href={item.reference}>{item.name}</NavLink>
+                <NavLink
+                    to={item.reference}
+                    className={"nav-link"}
+                    activeClassName={"active"}
+                >{item.name}</NavLink>
             </NavItem>
         })
     );

@@ -18,7 +18,8 @@ class Header extends Component {
 
     render() {
         const item=[
-            {name:"Component", reference:"/"}
+            {name:"Login", reference:"/login"},
+            {name:"Sign up", reference:"/signup"}
         ];
         return <header>
             <NavBar isOpen={this.state.isOpen} openHandler={this.openHandler} items={item}/>

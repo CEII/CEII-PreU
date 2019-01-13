@@ -1,0 +1,43 @@
+.Wrapper {
+    display: grid;
+    grid-column-gap: 1em;
+    grid-template-columns: auto auto auto auto;
+    text-align: center;
+    margin: 1em 1em;
+}
+
+.WrapperW {
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 400px) {
+    .Wrapper {
+        grid-template-columns: auto;
+        text-align: center;
+        margin: 1em 1em;
+    }
+
+    .Wrapper > * {
+        margin: 1em 0;
+    }
+
+    .WrapperW {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .Wrapper {
+        grid-template-columns: auto;
+        text-align: center;
+        margin: 1em 1em;
+    }
+
+    .WrapperW {
+        width: 90%;
+    }
+}
