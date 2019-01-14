@@ -6,7 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 
 import * as serviceWorker from './serviceWorker';
 
-const app=<BrowserRouter>
+const app=<BrowserRouter basename={"*/preu"}>
     <App/>
 </BrowserRouter>;
 
