@@ -57,7 +57,7 @@ class Signup extends Component {
             canFetch = canFetch && this.state.form[value] !== "";
         }
         if (canFetch) {
-            fetch("http://localhost:5000/sistema/estudiantes/", {
+            fetch(process.env.API_PREFIX+"/sistema/estudiantes/", {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
