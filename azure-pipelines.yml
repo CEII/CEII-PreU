@@ -17,7 +17,7 @@ steps:
 
 - script: |
     npm install
-    npm run build
+    REACT_APP_API_PREFIX=$(apiPrefix) npm run build
   displayName: 'npm install and build'
 
 - task: ArchiveFiles@2
