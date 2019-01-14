@@ -50,7 +50,7 @@ class Cursos extends Component {
             data: data
         });
         if((this.state.canFry&&numeroDia===5)||numeroDia!==5){
-            fetch(process.env.API_PREFIX+"/sistema/estudiantes/reservar/" + id, {
+            fetch(process.env.REACT_APP_API_PREFIX+"/sistema/estudiantes/reservar/" + id, {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("token")
@@ -127,7 +127,7 @@ class Cursos extends Component {
 
     getCourses() {
         let status = null;
-        fetch(process.env.API_PREFIX+"/sistema/cursos", {
+        fetch(process.env.REACT_APP_API_PREFIX+"/sistema/cursos", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
@@ -165,7 +165,7 @@ class Cursos extends Component {
 
     getPersonalCourses(fetchedData) {
         let status = null;
-        fetch(process.env.API_PREFIX+"/sistema/estudiantes/personal", {
+        fetch(process.env.REACT_APP_API_PREFIX+"/sistema/estudiantes/personal", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }

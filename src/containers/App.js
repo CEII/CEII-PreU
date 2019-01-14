@@ -12,6 +12,7 @@ import './App.css';
 class App extends Component {
 
     render() {
+        console.log(process.env.REACT_APP_API_PREFIX);
         return (
             <>
                 <Layout>

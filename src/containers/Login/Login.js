@@ -41,7 +41,7 @@ class Login extends Component {
             this.setState({
                 loading: true
             });
-            fetch(process.env.API_PREFIX+"/sistema/estudiantes/login", {
+            fetch(process.env.REACT_APP_API_PREFIX+"/sistema/estudiantes/login", {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
