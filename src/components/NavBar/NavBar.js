@@ -14,7 +14,7 @@ export const navBar = (props) => {
     return (
         <Navbar dark expand="md" className={style["Nav-bar"]} >
             <a className="navbar-brand" href="/">
-                <img src={"/icon.png"} width="30" height="30"
+                <img src={"/preu/icon.png"} width="30" height="30"
                      className="d-inline-block align-top" alt="icono del CEII"/>
                     CEII
             </a>
