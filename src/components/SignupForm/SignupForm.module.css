@@ -1,0 +1,9 @@
+.FormContainer{
+    width: 70%;
+    margin: 0 auto;
+}
+
+form{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}

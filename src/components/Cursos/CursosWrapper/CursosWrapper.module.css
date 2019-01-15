@@ -3,6 +3,11 @@
     margin: 0 auto;
 }
 
+.DropB{
+    width:130px;
+    margin:0 auto
+}
+
 .Wrapper {
     display: grid;
     grid-column-gap: 1em;

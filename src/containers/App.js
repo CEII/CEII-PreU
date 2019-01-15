@@ -4,7 +4,6 @@ import Cursos from "./../containers/Cursos/Cursos";
 import Login from "./Login/Login";
 import Signup from "./Singup/Signup";
 import Logout from "./Login/Logout";
-import Footer from "./Footer/Footer";
 import {Switch, Route} from "react-router-dom";
 import './App.css';
 
@@ -12,7 +11,6 @@ import './App.css';
 class App extends Component {
 
     render() {
-        console.log(process.env.REACT_APP_API_PREFIX);
         return (
             <>
                 <Layout>

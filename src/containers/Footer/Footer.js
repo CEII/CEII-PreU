@@ -8,7 +8,7 @@ class Footer extends Component {
     }
 
     render() {
-        return <footer className={this.props.type===1?style.Footer:style.FooterL}>
+        return <footer className={style.Footer}>
             <div className="container">
                 <div className="row">
                     <div className="col-md-12 py-5">
@@ -18,6 +18,9 @@ class Footer extends Component {
                             </a>
                             <a className="ins-ic" href={"https://www.instagram.com/ceii.uca/"}>
                                 <i className="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x" style={{color:"white"}}> </i>
+                            </a>
+                            <a className="tw-ic" href={"https://twitter.com/ceii_uca"}>
+                                <i className="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x" style={{color:"white"}}> </i>
                             </a>
                         </div>
                     </div>

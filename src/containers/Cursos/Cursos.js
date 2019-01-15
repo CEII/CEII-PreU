@@ -12,15 +12,24 @@ class Cursos extends Component {
         this.onButtonClickHandler = this.onButtonClickHandler.bind(this);
         this.onButtonClickHandler = this.onButtonClickHandler.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
+        this.onHorarioChange=this.onHorarioChange.bind(this);
         this.state = {
             data: [],
             canFry: false,
             loading: true,
+            loadingContent:false,
             asistidos: 0,
             alert: {
                 alertVisible: false,
                 text: "",
                 type: ""
+            },
+            horario:{
+                1:"mañana",
+                2:"mañana",
+                3:"mañana",
+                4:"mañana",
+                5:"mañana"
             }
         };
     }
@@ -28,6 +37,7 @@ class Cursos extends Component {
     componentDidMount() {
         const token = localStorage.getItem("token");
         if (token !== null) {
+            this.setState({loadingContent:true});
             this.getCourses();
         } else {
             this.props.history.push("/login");
@@ -49,8 +59,8 @@ class Cursos extends Component {
         this.setState({
             data: data
         });
-        if((this.state.canFry&&numeroDia===5)||numeroDia!==5){
-            fetch(process.env.REACT_APP_API_PREFIX+"/sistema/estudiantes/reservar/" + id, {
+        if ((this.state.canFry && numeroDia === 5) || numeroDia !== 5) {
+            fetch(process.env.REACT_APP_API_PREFIX + "/sistema/estudiantes/reservar/" + id, {
                 method: "POST",
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("token")
@@ -111,7 +121,7 @@ class Cursos extends Component {
                         });
                 }
             }).catch(error => console.log(error));
-        }else{
+        } else {
             console.log("Hola");
             this.setState({
                 data: data,
@@ -127,7 +137,7 @@ class Cursos extends Component {
 
     getCourses() {
         let status = null;
-        fetch(process.env.REACT_APP_API_PREFIX+"/sistema/cursos", {
+        fetch(process.env.REACT_APP_API_PREFIX + "/sistema/cursos/todos", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
@@ -165,7 +175,7 @@ class Cursos extends Component {
 
     getPersonalCourses(fetchedData) {
         let status = null;
-        fetch(process.env.REACT_APP_API_PREFIX+"/sistema/estudiantes/personal", {
+        fetch(process.env.REACT_APP_API_PREFIX + "/sistema/estudiantes/personal", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
@@ -173,20 +183,18 @@ class Cursos extends Component {
             status = response.status;
             return response.json()
         }).then(data => {
-            switch (status) {
-                case 401:
-                    localStorage.clear();
-                    this.props.history.push("/login");
-                    break;
+            if (status === 401) {
+                localStorage.clear();
+                this.props.history.push("/login");
             }
             const dataMod = fetchedData.map((element) => {
                 return {
                     ...element,
                     active: data.cursosInscritos.includes(element._id),
-                    loading: false
+                    loading: false,
                 };
             });
-            this.setState({data: dataMod, canFry: data.cursosAsistidos.length >= 3});
+            this.setState({data: dataMod, canFry: data.cursosAsistidos.length >= 3,loadingContent:false});
         }).catch(error => console.log(error));
     }
 
@@ -200,20 +208,43 @@ class Cursos extends Component {
         });
     }
 
+    onHorarioChange(event){
+        event.preventDefault();
+        const newHorario={...this.state.horario};
+        switch (newHorario[event.target.name]) {
+            case "mañana":
+                newHorario[event.target.name]="tarde";
+                break;
+            default:
+                newHorario[event.target.name]="mañana";
+                break;
+        }
+        this.setState({horario:newHorario});
+    }
+
     render() {
+
+        const body=this.state.loadingContent?
+            <div className="spinner-grow Center" role="status" style={{marginTop:"45vh", background:"red"}}>
+                <span className="sr-only">Loading...</span>
+            </div>
+            :<CursosWrapper
+                cursos={this.state.data}
+                handler={this.onButtonClickHandler}
+                canFry={this.state.canFry}
+                change={this.onHorarioChange}
+                horario={this.state.horario}
+            />;
+
         return <>
             <Header type={1}/>
             <div className={style.body}>
-                <div className={style.Floating}>
+                <div className={"Floating"}>
                     <Alert color={this.state.alert.type} isOpen={this.state.alert.alertVisible} toggle={this.onDismiss}>
                         {this.state.alert.text}
                     </Alert>
                 </div>
-                <CursosWrapper
-                    cursos={this.state.data}
-                    handler={this.onButtonClickHandler}
-                    canFry={this.state.canFry}
-                />
+                {body}
             </div>
             <Footer type={1}/>
         </>;

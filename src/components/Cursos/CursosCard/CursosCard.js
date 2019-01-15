@@ -1,7 +1,6 @@
 import React from 'react';
-import {Card, Button, CardHeader, CardBody, Row, Col} from 'reactstrap';
+import {Card, Button, CardHeader, CardBody} from 'reactstrap';
 import style from "./CursosCard.module.css"
-import PropTypes from "prop-types";
 
 export const cursosCard = (props) => {
     const data = {...props.data};
@@ -43,7 +42,7 @@ export const cursosCard = (props) => {
             <CardBody>
                 {text}
                 {bottom}
-                {data.numeroDia===5?"Disponible si se ha asistido a almenos 3 cursos":""}
+                {data.numeroDia===5?"Disponible si se ha asistido a almenos 2 cursos":""}
             </CardBody>
         </Card>
     );

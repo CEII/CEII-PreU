@@ -1,9 +1,6 @@
 .CenterContainer{
-    position: absolute;
-    margin-top: 2em;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 20%;
+    margin: 5em auto;
 }
 
 .Center{
@@ -12,5 +9,27 @@
 }
 
 .Color{
-    background: #283593;
+    background: #013c6f;
+}
+
+.Floating{
+    position:fixed;
+    top: 1em;
+    left: 1em;
+    margin: 0 auto;
+    z-index: 1000;
+}
+
+.btn:disabled{
+    background: #013c6f;
+}
+
+.btn:hover{
+    background: #012a56;
+}
+
+@media only screen and (max-width: 1000px) {
+    .CenterContainer{
+        width: 300px;
+    }
 }

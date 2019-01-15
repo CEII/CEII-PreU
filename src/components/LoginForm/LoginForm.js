@@ -1,8 +1,8 @@
 import React from 'react';
-import {Button, Container, Form, FormGroup, Input, Label, FormText} from "reactstrap";
+import {Container, Form, FormGroup, Input, Label} from "reactstrap";
 
 export const loginForm = (props) => {
-    const form={...props.form};
+    const form = {...props.form};
     return (
         <Container className={"justify-content-center"}>
             <h2>Iniciar Sesión</h2>

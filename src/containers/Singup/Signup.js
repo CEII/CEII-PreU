@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {signupForm as SignupForm} from "../../components/SignupForm/SignupForm";
-import {Button} from "reactstrap";
+import {Button, Alert} from "reactstrap";
 import {withRouter} from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "./../Footer/Footer";
@@ -10,6 +10,7 @@ class Signup extends Component {
         super(props);
         this.submitHandler = this.submitHandler.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
+        this.onDismiss = this.onDismiss.bind(this);
         this.state = {
             form: {
                 nombre: "",
@@ -20,8 +21,16 @@ class Signup extends Component {
             },
             passwordFocused: false,
             passwordValid: false,
-            carnetValid:true,
+            carnetValid: true,
             loading: false,
+            message: "",
+            formValid: {
+                nombre: false,
+                apellido: false,
+                carnet: false,
+                secreto: false,
+                horario: true
+            },
             alert: {
                 message: "",
                 show: false
@@ -32,14 +41,46 @@ class Signup extends Component {
     changeHandler(event) {
         event.preventDefault();
         const newState = {...this.state.form};
-        switch (event.target.name) {
+        const newFormValid = {...this.state.formValid};
+        const name = event.target.name;
+        newState[name] = event.target.value;
+        switch (name) {
             case "secreto":
-                newState[event.target.name] = event.target.value;
-                const color = this.checkPass(newState[event.target.name]);
-                this.setState({form: newState, passwordValid: color});
+                const passValid = this.checkPass(newState[name]);
+                console.log(passValid);
+                newFormValid[name] = passValid;
+                this.setState({
+                    form: newState,
+                    passwordValid: passValid,
+                    formValid: newFormValid
+                });
+                break;
+            case "carnet":
+                const carnetValid = this.checkCarnet(newState[name]);
+                newFormValid[name] = carnetValid;
+                this.setState({
+                    form: newState,
+                    formValid: newFormValid
+                });
+                break;
+            case "horario":
+                this.setState({
+                    form: newState
+                });
+                break;
+            case "nombre":
+            case "apellido":
+                newFormValid[name] = this.checkText(newState[name]);
+                this.setState({
+                    form: newState,
+                    formValid: newFormValid
+                });
+                break;
             default :
-                newState[event.target.name] = event.target.value;
-                this.setState({form: newState});
+                this.setState({
+                    form: newState,
+                });
+                break;
         }
     }
 
@@ -48,16 +89,21 @@ class Signup extends Component {
         return password.length > 7;
     }
 
+    checkCarnet(carnet) {
+        return carnet.trim().length > 7;
+    }
+
+    checkText(text) {
+        return text.trim().length > 0;
+    }
+
     submitHandler(event) {
         event.preventDefault();
-        this.setState({loading: true});
-        let canFetch = true;
         let status = 0;
-        for (let value in this.state.form) {
-            canFetch = canFetch && this.state.form[value] !== "";
-        }
-        if (canFetch) {
-            fetch(process.env.REACT_APP_API_PREFIX+"/sistema/estudiantes/", {
+        let message = "";
+        this.setState({loading: true});
+        fetch(process.env.REACT_APP_API_PREFIX + "/sistema/estudiantes/",
+            {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
@@ -66,33 +112,68 @@ class Signup extends Component {
                 body: JSON.stringify({
                     ...this.state.form
                 })
-            }).then(response => {
-                status = response.status;
-                switch (status) {
-                    case 422:
-                        this.setState({
-                            carnetValid:false
-                        });
-                        this.setState({loading:false})
-                        break;
-                    default: return response.json();
-                }
-            }).then((data) => {
-                this.props.history.push("/login");
-            })
-        } else {
+            }
+        ).then(response => {
+            status = response.status;
+            message = response.statusText;
+            return response.json();
+        }).then(data => {
+            switch (status) {
+                case 422:
+                    this.setState({
+                        carnetValid: false,
+                        alert: {
+                            message: data.message,
+                            show: true
+                        }
+                    });
+                    this.setState({loading: false});
+                    break;
+                case 201:
+                    this.props.history.push("/login");
+                    break;
+                default:
+                    console.log(message, status);
+                    break;
+            }
+        });
+    }
 
-        }
+    onDismiss() {
+        this.setState({
+            alert: {
+                show: false,
+                message: ""
+            }
+        });
     }
 
     render() {
+        let disable = true;
+        for (let key in this.state.formValid) {
+            disable = disable && this.state.formValid[key];
+        }
         const button = this.state.loading ?
             <div className="spinner-grow Center" role="status">
                 <span className="sr-only">Loading...</span>
             </div> :
-            <Button className={"Center Color"} onClick={(event) => this.submitHandler(event)}>CREAR</Button>;
-        return <div>
+            <Button
+                className={"Center btn"}
+                disabled={!disable}
+                onClick={(event) => this.submitHandler(event)}
+            >CREAR</Button>;
+
+        return <>
             <Header type={0}/>
+            <div className={"Floating"}>
+                <Alert
+                    color={"danger"}
+                    isOpen={this.state.alert.show}
+                    toggle={this.onDismiss}
+                >
+                    {this.state.alert.message}
+                </Alert>
+            </div>
             <SignupForm
                 change={this.changeHandler}
                 data={this.state.form}
@@ -103,7 +184,7 @@ class Signup extends Component {
             />
             {button}
             <Footer type={1}/>
-        </div>;
+        </>;
     }
 }
 

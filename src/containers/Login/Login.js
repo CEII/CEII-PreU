@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import Footer from "./../Footer/Footer";
 import {loginForm as LoginForm} from "../../components/LoginForm/LoginForm";
 import {Button, Alert} from "reactstrap";
@@ -41,7 +41,7 @@ class Login extends Component {
             this.setState({
                 loading: true
             });
-            fetch(process.env.REACT_APP_API_PREFIX+"/sistema/estudiantes/login", {
+            fetch(process.env.REACT_APP_API_PREFIX + "/sistema/estudiantes/login", {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
@@ -52,26 +52,22 @@ class Login extends Component {
                 })
             }).then(response => {
                 status = response.status;
-                switch (status) {
-                    case 401:
-                        this.setState({
-                            alert: {
-                                visible: true,
-                                text: "Usuario no encontrado",
-                                type: "danger"
-                            },
-                            loading: false
-                        });
-                        break;
-                    default:
-                        return response.json();
-                }
+                return response.json();
             }).then(data => {
                 if (status !== 401) {
                     localStorage.setItem("token", data.message);
                     this.props.history.push("/");
+                }else{
+                    this.setState({
+                        alert: {
+                            visible: true,
+                            text: "Usuario no encontrado",
+                            type: "danger"
+                        },
+                        loading: false
+                    });
                 }
-            })
+            });
         } else {
             console.log("nop");
         }
@@ -81,7 +77,11 @@ class Login extends Component {
     validFields() {
         let isValid = true;
         for (let key in this.state.form) {
-            isValid = isValid && this.state.form[key] !== "";
+            if(key==="secreto"){
+                isValid = isValid && this.state.form[key].trim().length>7;
+            }else{
+                isValid = isValid && this.state.form[key].trim().length>0;
+            }
         }
         return isValid;
     }
@@ -97,21 +97,23 @@ class Login extends Component {
     }
 
     render() {
-
         const buttom = this.state.loading ?
             <div className="spinner-grow Center" role="status">
                 <span className="sr-only">Loading...</span>
             </div>
-            : <Button className={style.btn} onClick={this.submitHandler}>INICIAR SESIÓN</Button>
+            : <Button className={style.btn+" btn"} onClick={this.submitHandler} disabled={!this.validFields()}>INICIAR SESIÓN</Button>
 
         return <>
             <Header type={0}/>
-            <Alert color={this.state.alert.type} isOpen={this.state.alert.visible} toggle={this.onDismiss}>
-                {this.state.alert.text}
-            </Alert>
+            <div className={"Floating"}>
+                <Alert color={this.state.alert.type} isOpen={this.state.alert.visible} toggle={this.onDismiss}>
+                    {this.state.alert.text}
+                </Alert>
+            </div>
             <div className={"CenterContainer"}>
                 <LoginForm data={this.state.form} change={this.changeHandler}/>
                 {buttom}
+                <p style={{textAlign:"center"}}>No te has registrado? Da click<Link to={"/signup"}> aqui</Link></p>
             </div>
             <Footer type={0}/>
         </>

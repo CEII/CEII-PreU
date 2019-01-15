@@ -1,11 +1,10 @@
 .body{
     padding: 2em;
+    min-height: 100vh;
+    bottom: 0;
 }
 
-.Floating{
-    position:fixed;
-    top: 1em;
-    left: 1em;
-    margin: 0 auto;
-    z-index: 1000;
+.Spinner{
+    margin-top:45vh;
+    background: #013c6f;
 }

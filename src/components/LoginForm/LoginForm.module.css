@@ -9,10 +9,6 @@
     background: #013c6f;
 }
 
-.btn:disabled{
-    background: #013c6f;
-}
-
 @media all and (min-width: 480px) {
     form {
         margin: 0 auto;
