@@ -194,7 +194,7 @@ class Cursos extends Component {
                     loading: false,
                 };
             });
-            this.setState({data: dataMod, canFry: data.cursosAsistidos.length >= 3,loadingContent:false});
+            this.setState({data: dataMod, canFry: data.cursosAsistidos.length >= 2,loadingContent:false});
         }).catch(error => console.log(error));
     }
 
