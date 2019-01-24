@@ -115,7 +115,7 @@ class Login extends Component {
                 <LoginForm data={this.state.form} change={this.changeHandler}/>
                 {buttom}
                 <p style={{textAlign: "center"}}>¿No te has registrado? Da click<Link to={"/signup"}> aquí</Link></p>
-                <p style={{textAlign: "center"}}>¿Tienes problemas para acceder a tu cuenta? Envia un correo al 00062816@uca.edu.sv
+                <p style={{textAlign: "center"}}>¿Tienes problemas para acceder a tu cuenta? Envia un correo al 00178616@uca.edu.sv
                 </p>
             </div>
             <Footer type={0}/>
