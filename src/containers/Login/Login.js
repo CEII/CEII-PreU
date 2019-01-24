@@ -57,7 +57,7 @@ class Login extends Component {
                 if (status !== 401) {
                     localStorage.setItem("token", data.message);
                     this.props.history.push("/");
-                }else{
+                } else {
                     this.setState({
                         alert: {
                             visible: true,
@@ -77,10 +77,10 @@ class Login extends Component {
     validFields() {
         let isValid = true;
         for (let key in this.state.form) {
-            if(key==="secreto"){
-                isValid = isValid && this.state.form[key].trim().length>7;
-            }else{
-                isValid = isValid && this.state.form[key].trim().length>0;
+            if (key === "secreto") {
+                isValid = isValid && this.state.form[key].trim().length > 7;
+            } else {
+                isValid = isValid && this.state.form[key].trim().length > 0;
             }
         }
         return isValid;
@@ -101,7 +101,8 @@ class Login extends Component {
             <div className="spinner-grow Center" role="status">
                 <span className="sr-only">Loading...</span>
             </div>
-            : <Button className={style.btn+" btn"} onClick={this.submitHandler} disabled={!this.validFields()}>INICIAR SESIÓN</Button>
+            : <Button className={style.btn + " btn"} onClick={this.submitHandler} disabled={!this.validFields()}>INICIAR
+                SESIÓN</Button>
 
         return <>
             <Header type={0}/>
@@ -113,7 +114,9 @@ class Login extends Component {
             <div className={"CenterContainer"}>
                 <LoginForm data={this.state.form} change={this.changeHandler}/>
                 {buttom}
-                <p style={{textAlign:"center"}}>No te has registrado? Da click<Link to={"/signup"}> aqui</Link></p>
+                <p style={{textAlign: "center"}}>¿No te has registrado? Da click<Link to={"/signup"}> aquí</Link></p>
+                <p style={{textAlign: "center"}}>¿Tienes problemas para acceder a tu cuenta? Envia un correo al 00062816@uca.edu.sv
+                </p>
             </div>
             <Footer type={0}/>
         </>

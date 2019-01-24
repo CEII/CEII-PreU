@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, FormGroup, FormText, Input, Label} from "reactstrap";
+import {Container, FormGroup, Input} from "reactstrap";
 import {cursosCard as CursosCard} from "./../CursosCard/CursosCard";
 import style from "./CursosWrapper.module.css";
 
