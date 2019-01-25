@@ -10,7 +10,7 @@ export const cursosCard = (props) => {
             <p>Hora: {data.hora}</p>
             <p>Fecha: {data.fechaEvento}</p>
             <p>Salon: {data.salon}</p>
-            <p>Cupos disponibles: {data.cupo - data.numeroInscritos}</p>
+            <p>Cupos disponibles: {data.cupo - data.numeroInscritos}/{data.cupo}</p>
         </div>;
     let bottom = null;
     if (data.loading) {
