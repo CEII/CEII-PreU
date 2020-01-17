@@ -5,6 +5,10 @@ import {Alert} from "reactstrap";
 import Footer from "./../Footer/Footer";
 import {withRouter} from "react-router-dom";
 import Header from "../Header/Header";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 class Cursos extends Component {
     constructor(props) {
@@ -195,6 +199,19 @@ class Cursos extends Component {
                 };
             });
             this.setState({data: dataMod, canFry: data.cursosAsistidos.length >= 2,loadingContent:false});
+            MySwal.fire({
+                title:<h2>Peque&ntilde;o recordatorio</h2>,
+                html: <div style={{textAlign:'left'}}>
+                    <p>Estimado estudiante, ten en mente las siguientes consideraciones:</p><br/>
+                    <ul>
+                        <li>Cada Taller individual cuenta como <b>1 actividad socioafectiva</b>.</li>
+                        <br/>
+                        <li>Puedes inscribirte a todos los talleres que quieras, siempre y cuando no tengan conflicto de horario.</li>
+                        <br/>
+                        <li>Para poder asistir a la Actividad Recreativa del viernes, debes haber participado en un <b>mínimo de 2 Talleres</b>.</li>
+                    </ul>
+                </div>
+            })
         }).catch(error => console.log(error));
     }
 
